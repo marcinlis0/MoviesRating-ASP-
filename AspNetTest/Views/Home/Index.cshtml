@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>Oceniaj filmy!</h2>
+        <p>
+            Zapraszamy cię do oceniania filmów i czytania komentarzy w największym portalu o filmach w sieci.
+        </p>
+        <p>@Html.ActionLink("Więcej", "List", "Movies")</p>
+    </div>
+    <div class="col-md-6">
+        <h2>Nie posiadasz konta?</h2>
+        <p>Załóż nowe konto lub zaloguj się przez facebooka, aby móc oceniać filmy i dodawać komentarze.</p>
+        <p>@Html.ActionLink("Więcej", "Register", "Account")</p>
+    </div>
+</div>

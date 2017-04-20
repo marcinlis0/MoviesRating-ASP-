@@ -1,0 +1,61 @@
+﻿@using System.Web.Mvc.Html
+@using AspNetTest.Models
+@using Microsoft.AspNet.Identity
+
+
+@helper CalcAverageRatings(ICollection<Comment> comments)
+{
+if (comments.Count == 0)
+{
+        <span>brak ocen</span>
+}
+else
+{
+    var average = comments.Sum(comment => comment.Rating) / comments.Count;
+        @average
+}
+
+}
+
+@helper DisplayMovie(Movie movie)
+{
+var Html = ((System.Web.Mvc.WebViewPage)WebPageContext.Current.Page).Html;
+
+    <div class="row table-bordered">
+        <div class="col-md-offset-1">
+            <h2>
+                @Html.ActionLink(movie.Title, "Details", new { id = movie.Id })
+            </h2>
+            <span class="text-info">
+                @Html.DisplayFor(modelItem => movie.ShortDesc)<br /><br />
+            </span>
+            <span>
+                Rodzaj filmu: @movie.Type.Name<br />
+                Średnia ocen: @CalcAverageRatings(movie.Comments)<br />
+                Ilość komentarzy: @Html.DisplayFor(modelItem => movie.Comments.Count)
+                <br /><br />
+            </span>
+        </div>
+    </div>
+}
+
+@helper DisplayComment(Comment comment)
+{
+var Html = ((System.Web.Mvc.WebViewPage)WebPageContext.Current.Page).Html;
+
+    <div class="row table-bordered">
+        <div class="col-md-offset-1">
+            <h5>@comment.User.Email <small>(@comment.Created)</small></h5>
+            <p>@comment.Content</p>
+            <p class="h4">Ocena: @comment.Rating</p>
+        </div>
+        @if (User.IsInRole("Admin") || User.Identity.GetUserId() == comment.UserId)
+        {
+            <div class="col-md-4">
+                @Html.ActionLink("Edytuj", "Edit", new { Controller = "Comments", id = comment.Id }) |
+                @Html.ActionLink("Usuń", "Delete", new { Controller = "Comments", id = comment.Id })
+            </div>
+        }
+    </div>
+    <br />
+}

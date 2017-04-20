@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Lista filmów</h2>
+<div>
+    @foreach (var movie in Model)
+    {
+        @Helpers.DisplayMovie(movie)
+    }
+</div>
+

@@ -1,0 +1,47 @@
+﻿@model AspNetTest.Models.IndexViewModel
+@{
+    ViewBag.Title = "Manage";
+}
+
+<h2>Zarządzanie</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <div class="col-lg-5">
+        <h4>Ustawienia konta</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>Hasło:</dt>
+            <dd>
+                [
+                @if (Model.HasPassword)
+                {
+                    @Html.ActionLink("Zmień hasło", "ChangePassword")
+                }
+                else
+                {
+                    @Html.ActionLink("Create", "SetPassword")
+                }
+                ]
+            </dd>
+        </dl>
+    </div>
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="col-lg-5">
+            <h4>Panel admina</h4>
+            <hr />
+            <dl>
+                <dt>
+                    @Html.ActionLink("Zarządzanie użytkownikami", "Index", "UserView")
+                </dt>
+                <dt>
+                    @Html.ActionLink("Zarządzanie filmami", "Index", "Movies")
+                </dt>
+                <dt>
+                    @Html.ActionLink("Zarządzanie typami filmów", "Index", "Types")
+                </dt>
+            </dl>
+        </div>
+    }
+</div>

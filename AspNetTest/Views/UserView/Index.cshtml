@@ -1,0 +1,38 @@
+﻿@model AspNetTest.Models.GroupedUserViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Użytkownicy</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Users[0].User)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Users[0].Role)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var user in Model.Users)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => user.User.Email)
+            </td>
+            <td>
+                @user.Role
+            </td>
+            <td>
+                @Html.ActionLink("Edytuj", "EditRole", new { id = user.User.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+

@@ -1,0 +1,44 @@
+﻿@model AspNetTest.Models.RoleModel
+@{
+    ViewBag.Title = "EditRole";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Zmiana roli</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.User.Id)
+
+        <table class="table">
+            <tr>
+                <td class="col-md-1">@Html.LabelFor(model => model.User.Email, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+                <td class="col-md-8">@Model.User.Email</td>
+            </tr>
+            <tr>
+                <td class="col-md-1">@Html.LabelFor(model => model.Role, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+                <td class="col-md-8">@Html.DropDownListFor(m => m.Role, new SelectList(Model.Role, "Name", "Name"))</td>
+            </tr>
+        </table>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Zapisz" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Wróc do listy", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
